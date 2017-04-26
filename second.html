@@ -1,0 +1,156 @@
+            <html>
+            <head>
+              <style type="text/css">
+                .box{ 
+                  font-weight: bold;
+                  color:white;
+                  position: absolute;
+                  width: 500px;
+                  height: 300px;
+                  z-index: 15;
+                  top: 50%;
+                  left: 40%;
+                  margin: -100px 0 0 -150px;
+                  //background:  "#28b463" ;
+                  border: 2px solid white;
+                }
+                table{
+                  top:10%;
+                  left: 35%;
+                  width: 350px;
+                  height: 65px;
+                  position: absolute;
+                }
+                td {
+                  color:white;
+                  text-align:center; 
+                  vertical-align:middle;
+                  border: 1px solid white;
+                  overflow: hidden;
+                  width: 50px;
+                  height: 65px;
+                }
+              </style>
+               <script>
+               
+                var next=0;
+                var score=0;
+                 var ans_given=[];
+                 var ans=[];
+                var allQuestions=[{question: "Who is Prime Minister of the United Kingdom?", 
+                choices: ["xyz", "Gordon Brown", "Winston Churchill", "Tony Blair"],
+                correctAnswer:"xyz"},{question: "Who is Prime Minister of India", 
+                choices: ["A.P.J Abdul Kalam", "Jawahar Lal Nehru", "Narendra Modi", "Manmohan Singh"],
+                correctAnswer:"Narendra Modi"},{question: "Who has won the 2016 Women Singles Wimbledon Championship?", 
+                choices: ["Simona Halep", "Serena Williams", "Angelique Kerber", "Garbine Muguruza"],
+                correctAnswer:"Serena Williams"}];
+                function correct_answers(){
+                 var value;
+                  var ans=[];
+                  for(value=0;value<3;value++){
+                    ans[value]=allQuestions[value].correctAnswer;
+                  } 
+                  return ans;
+                }
+                function question_no(){
+                   document.getElementById("demo11").innerHTML = allQuestions[next].question; 
+               }
+               function choice_0(){
+                   document.getElementById("demo0").innerHTML =  allQuestions[next].choices[0];
+               }
+                function choice_1(){
+                   document.getElementById("demo1").innerHTML =  allQuestions[next].choices[1];
+               }
+                function choice_2(){
+                   document.getElementById("demo2").innerHTML =  allQuestions[next].choices[2];
+               }
+                function choice_3(){
+                   document.getElementById("demo3").innerHTML =  allQuestions[next].choices[3];
+               }
+                 function select_option(){
+                     alert("Give answer to this question first");
+                 }
+  function compare(){
+    var ques_no =0;
+    ans = correct_answers();
+    var ques_no=0;
+    while(ques_no<3){
+       if(ans[ques_no]==ans_given[ques_no]){
+          score++;
+        }
+         ques_no++;
+    }
+    document.getElementById("demo").innerHTML="You scored" + score + "points";
+  }
+                 function store_ans(){   
+                  var i;
+                    for(i=0;i<4;i++)
+                    { 
+                        if(document.getElementById(i).checked)
+                        {    
+                             ans_given[next]=document.getElementById("demo"+i).innerHTML;
+                             return next++;
+                        }
+                      }
+                    select_option();
+                    return next;
+                 }
+              function uncheck(){
+                for(i=0;i<4;i++){ 
+                  document.getElementById(i).checked=false;
+               }
+              }
+               function change_question(){
+                 store_ans();
+                 if(next==3){
+                   compare();
+                 }
+                 else{
+                   uncheck();
+                   question_no();
+                   choice_0();
+                   choice_1();
+                   choice_2();
+                   choice_3();
+                 }
+               }
+             </script>
+              </head>
+            <body bgcolor="#1ABC9C">
+            <div class="box" >
+              <p id="demo" >
+              <span id="demo11">
+                <script>
+                  question_no();
+                </script>
+                </span>
+               <br><br>
+               <input type="radio" name="options" id="0"> </input>
+               <span id="demo0">
+                <script>
+                 choice_0();
+                </script>
+             </span><br>
+             <input type="radio" name="options" id="1"> </input>
+             <span id="demo1">
+             <script>
+                 choice_1();
+                </script>
+            </span><br>
+            <input type="radio" name="options" id="2"> </input>
+            <span id="demo2">
+             <script>
+                 choice_2();
+                </script>
+            </span><br>
+            <input type="radio" name="options" id="3"> </input>
+            <span id="demo3">
+            <script>
+                 choice_3();
+                </script>
+            </span><br>
+            </p>
+            </div>
+            <button onclick="change_question()" style="position: absolute;left:65%;top:89%;background-color:'#abe5e4';">Next</button>
+            </body> 
+            </html>
